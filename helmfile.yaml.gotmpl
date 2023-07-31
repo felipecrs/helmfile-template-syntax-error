@@ -1,0 +1,20 @@
+environments:
+  default:
+    values:
+      - values.yaml.gotmpl
+
+---
+
+{{ $_ := .Values.thisIsAlwaysSet | required "thisIsAlwaysSet is not set" }}
+
+repositories:
+ - name: prometheus-community
+   url: https://prometheus-community.github.io/helm-charts
+
+releases:
+- name: prom-norbac-ubuntu
+  namespace: prometheus
+  chart: prometheus-community/prometheus
+  set:
+  - name: rbac.create
+    value: false
